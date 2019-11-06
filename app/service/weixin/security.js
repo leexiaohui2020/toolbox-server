@@ -18,8 +18,9 @@ class SecurityService extends Service {
         media: Buffer.from(imgBase64, 'base64')
       }
     })
-    if (data.errCode !== 0) {
-      return new Error(data.errMsg)
+
+    if (data.errcode !== 0) {
+      return new Error(data.errmsg)
     }
   }
 }
