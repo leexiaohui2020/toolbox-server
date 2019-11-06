@@ -9,7 +9,11 @@
   },
   "scripts": {
     "dev": "egg-bin dev",
+    "test": "egg-bin test",
     "start": "egg-scripts start --daemon --title=egg-server-toolbox-server",
     "stop": "egg-scripts stop --title=egg-server-toolbox-server"
+  },
+  "devDependencies": {
+    "egg-mock": "^3.24.1"
   }
 }
