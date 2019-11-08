@@ -10,6 +10,14 @@ class WeixinController extends Controller {
     if (data instanceof Error) return ctx.body = { status: 'err', errmsg: data.message }
     ctx.body = { status: 'ok', data }
   }
+
+  async msgSecCheck() {
+    const { ctx } = this
+    ctx.validate({ content: { type: 'string' } })
+    const data = await ctx.service.weixin.security.msgSecCheck(ctx.request.body.content)
+    if (data instanceof Error) return ctx.body = { status: 'err', errmsg: data.message }
+    ctx.body = { status: 'ok', data }
+  }
 }
 
 module.exports = WeixinController

@@ -23,6 +23,25 @@ class SecurityService extends Service {
       return new Error(data.errmsg)
     }
   }
+
+  async msgSecCheck(content) {
+    const { ctx } = this
+    const token = await ctx.service.weixin.token.getToken()
+    if (token instanceof Error) return token
+    const url = `https://api.weixin.qq.com/wxa/msg_sec_check?access_token=${token}`
+    const { data } = await ctx.curl(url, {
+      method: 'POST',
+      dataType: 'json',
+      contentType: 'json',
+      data: {
+        content
+      }
+    })
+
+    if (data.errcode !== 0) {
+      return new Error(data.errmsg)
+    }
+  }
 }
 
 module.exports = SecurityService

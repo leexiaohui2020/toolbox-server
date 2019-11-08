@@ -5,7 +5,7 @@ let token = null
 class TokenService extends Service {
 
   async getToken() {
-    if (token && token.expiresTime < new Date()) {
+    if (token && token.expiresTime > new Date()) {
       return token.accessToken
     }
     const data = await this.updateToken()
