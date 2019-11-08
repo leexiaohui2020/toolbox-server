@@ -9,6 +9,7 @@ class ProxyController extends Controller {
       date: { type: 'date' },
       size: { type: 'string', format: /^[\d+]x[\d+]$/ }
     }, ctx.query)
+    ctx.type = 'image/jpg'
     ctx.body = await ctx.service.proxy.getBingWallPaper(ctx.query)
   }
 }

@@ -1,5 +1,6 @@
 'use strict'
 const Service = require('egg').Service
+const monent = require('moment')
 
 class ProxyService extends Service {
 
@@ -11,13 +12,10 @@ class ProxyService extends Service {
    */
   async getBingWallPaper(opts = {}) {
     const { ctx } = this
-    const date = new Date(opts.date)
-    const now = new Date()
-    const i = Math.floor((now - date) / (1000 * 60 * 60 * 24))
-    const r = opts.size
-    const { data } = await ctx.curl(`http://www.atoolbox.net/api/GetBingWallpaper.php?i=${i}&r=${r}`, {
-      dataType: 'text'
-    })
+    const date = monent(opts.date).format('YYYY-MM-DD')
+    const item = await ctx.model.BingPaper.findOne({ date })
+    const first = await ctx.model.BingPaper.find()
+    const { data } = await ctx.curl((item || first).src += `${opts.size}.jpg`)
     return data
   }
 }
