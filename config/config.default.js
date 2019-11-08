@@ -14,5 +14,11 @@ module.exports = appInfo => {
     appSecret: '2747c603d324663f653b2da9f7d05258'
   }
 
+  config.mongoose = {
+    url: 'mongodb://localhost:27017/TOOLBOX-VERSION-1',
+    options: {
+      useUnifiedTopology: true
+    }
+  }
   return config
 }
