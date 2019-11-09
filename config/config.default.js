@@ -20,5 +20,6 @@ module.exports = appInfo => {
       useUnifiedTopology: true
     }
   }
+
   return config
 }

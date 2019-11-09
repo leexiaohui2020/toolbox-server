@@ -3,4 +3,5 @@
 module.exports = app => {
   const { router, controller } = app
   router.get('/proxy/getBingWallPaper', controller.proxy.getBingWallPaper)
+  router.post('/proxy/createGif', controller.proxy.createGif)
 }
