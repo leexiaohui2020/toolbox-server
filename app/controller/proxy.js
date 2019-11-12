@@ -23,6 +23,15 @@ class ProxyController extends Controller {
     if (data instanceof Error) return ctx.body = { status: 'err', errmsg: data.message }
     ctx.body = { status: 'ok', data }
   }
+
+  async getBilibiliAvCover() {
+    const { ctx } = this
+    ctx.validate({
+      avNumber: { type: 'string' }
+    })
+    const data = await ctx.service.proxy.getBilibiliAvCover(ctx.request.body)
+    ctx.body = { status: 'ok', data }
+  }
 }
 
 module.exports = ProxyController

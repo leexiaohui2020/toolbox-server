@@ -26,6 +26,17 @@ class ProxyService extends Service {
     if (data.code !== 1) return new Error(data.msg)
     return data.data
   }
+
+  /** 获取Bilibili视频封面 */
+  async getBilibiliAvCover({ avNumber }) {
+    const { ctx } = this
+    const url = `http://www.atoolbox.net/api/GetBilibiliAVCover.php?AV_number=${avNumber}`
+    const { data } = await ctx.curl(url, {
+      dataType: 'text',
+      timeout: 60000
+    })
+    return data
+  }
 }
 
 module.exports = ProxyService
