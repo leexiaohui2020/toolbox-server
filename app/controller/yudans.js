@@ -14,6 +14,15 @@ class YudansController extends Controller {
     ctx.body = { status: 'ok', data }
   }
 
+  async getDetail() {
+    const { ctx } = this
+    ctx.validate({
+      no: { type: 'int' }
+    })
+    const data = await ctx.service.yudans.getDetail(ctx.request.body)
+    ctx.body = { status: 'ok', data }
+  }
+
   async getPic() {
     const { ctx } = this
     const { id } = ctx.params
