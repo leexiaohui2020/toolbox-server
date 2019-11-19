@@ -6,6 +6,12 @@ class YudansCrawlService extends Service {
 
   async music() {
     const { ctx } = this
+    const getVideoId = async (no) => {
+      const url = `https://yudans.net/${no}`
+      const { data } = await ctx.curl(url, { timeout: 60000, dataType: 'text' })
+      const $ = cheerio.load(data, { decodeEntities: false })
+      return $('[data-videoid]').data('videoid').trim()
+    }
     const getNetPage = async (offset = '') => {
       const url = `https://yudans.net/?offset=${offset}`
       const { data } = await ctx.curl(url, { timeout: 60000, dataType: 'text' })
@@ -17,10 +23,12 @@ class YudansCrawlService extends Service {
         const type = $('.remark', elemnt).text().split(/\s+\-\s+/)[1].replace(/琴譜\s*$/, '')
         list.push({ no, title, type, author })
       })
+
       for (const item of list) {
         if (await ctx.model.YudansMusic.findOne({ no: item.no })) {
           return
         }
+        item.videoid = await getVideoId(item.no)
         await ctx.model.YudansMusic.create(item)
         ctx.logger.info('新增一首鱼蛋村纯音乐，[%s/%s]%s - %s', item.no, item.type, item.author, item.title)
       }

@@ -4,7 +4,8 @@ module.exports = ({ mongoose }) => {
     no: { type: Number, index: true, unique: true, required: true },
     type: { type: String },
     title: { type: String },
-    author: { type: String }
+    author: { type: String },
+    videoid: { type: String }
   }, {
     timestamps: {
       created_at: 'createdTime',
