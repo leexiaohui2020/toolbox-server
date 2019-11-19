@@ -1,5 +1,6 @@
 'use strict'
 const Service = require('egg').Service
+const cheerio = require('cheerio')
 
 class YudansService extends Service {
 
@@ -37,6 +38,34 @@ class YudansService extends Service {
       updatedAt: 0
     })
     return song
+  }
+
+  async getComment({ no, nextpagetoken }) {
+    const { ctx } = this
+    const music = await ctx.model.YudansMusic.findOne({ no })
+    if (!music) return new Error('该乐曲未上线')
+    const { videoid } = music
+    const url = `https://yudans.net/${no}`
+    const { data } = await ctx.curl(url, {
+      method: 'POST',
+      dataType: 'text',
+      data: {
+        videoid,
+        nextpagetoken,
+        action: 'ytcm_more',
+      }
+    })
+    const $ = cheerio.load(data, { decodeEntities: false })
+    const comments = []
+    $('.comment_row').each((index, element) => {
+      const avatarUrl = $('img', element).attr('src')
+      const list = $('span', element).html().split('<br>')
+      const nickName = list[0]
+      const content = list.slice(1).map(text => `<p>${text}</p>`).join('')
+      comments.push({ avatarUrl, nickName, content })
+    })
+    const token = $('.comment_showmore').data('id')
+    return { comments, token }
   }
 }
 

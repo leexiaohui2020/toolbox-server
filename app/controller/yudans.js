@@ -23,6 +23,19 @@ class YudansController extends Controller {
     ctx.body = { status: 'ok', data }
   }
 
+  async getComment() {
+    const { ctx } = this
+    ctx.validate({
+      no: { type: 'int' },
+      nextpagetoken: { type: 'string', required: false }
+    })
+    const data = await ctx.service.yudans.getComment(ctx.request.body)
+    if (data instanceof Error) {
+      return ctx.body = { status: 'err', errmsg: data.message }
+    }
+    ctx.body = { status: 'ok', data }
+  }
+
   async getPic() {
     const { ctx } = this
     const { id } = ctx.params
