@@ -10,11 +10,17 @@ class YudansCrawlService extends Service {
       const url = `https://yudans.net/${no}`
       const { data } = await ctx.curl(url, { timeout: 60000, dataType: 'text' })
       const $ = cheerio.load(data, { decodeEntities: false })
-      return $('[data-videoid]').data('videoid').trim()
+      return $('[data-videoid]').data('videoid') || ''
     }
     const getNetPage = async (offset = '') => {
       const url = `https://yudans.net/?offset=${offset}`
-      const { data } = await ctx.curl(url, { timeout: 60000, dataType: 'text' })
+      const { data } = await ctx.curl(url, {
+        timeout: 60000,
+        dataType: 'text',
+        headers: {
+          cookie: 'web_lang2=cn'
+        }
+      })
       const $ = cheerio.load(data, { decodeEntities: false })
       const list = []
       $('a[data-id]').each((index, elemnt) => {
