@@ -2,6 +2,7 @@
 /**  @param {Egg.Application} app */
 module.exports = app => {
   const { router, controller } = app
+  router.post('/cartoon/search', controller.cartoon.search)
   router.post('/cartoon/getList', controller.cartoon.getList)
   router.post('/cartoon/getPaper', controller.cartoon.getPaper)
   router.post('/cartoon/getUrlKey', controller.cartoon.getUrlKey)

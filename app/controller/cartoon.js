@@ -79,6 +79,16 @@ class CartoonController extends Controller {
     ctx.type = 'image/png'
     ctx.body = data
   }
+
+  async search() {
+    const { ctx } = this
+    ctx.validate({
+      page: { type: 'int' },
+      keyword: { type: 'string' }
+    })
+    const data = await ctx.service.cartoon.search(ctx.request.body)
+    ctx.body = { status: 'ok', data }
+  }
 }
 
 module.exports = CartoonController

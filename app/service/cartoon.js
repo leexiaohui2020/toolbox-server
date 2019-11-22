@@ -125,6 +125,47 @@ class CartoonService extends Service {
       })
     })
   }
+
+  async search({ keyword, page }) {
+    const { ctx } = this
+    const url = `http://www.1kkk.com/search?title=${keyword}&language=1&page=${page}`
+    const { data } = await ctx.curl(url, { dataType: 'text', timeout: 60000 })
+    const $ = cheerio.load(data, { decodeEntities: false })
+    const list = []
+
+    $('.mh-item').each((index, element) => {
+      const item = {}
+      item.Star = +$('.mh-star-line', element).eq(0).attr('class').match(/star\-(\d+)/)[1]
+      item.Title = $('.title > a', element).eq(0).text()
+      item.ShowPicUrlB = $('.mh-cover', element).eq(0).css('background-image').match(/url\([\'\"]?(\S+)[\'\"]?\)/)[1]
+      item.ShowLastPartName = $('.chapter > a', element).eq(0).text().trim()
+      item.ShowConver = $('.mh-tip-wrap .mh-cover', element).css('background-image').match(/url\([\'\"]?(\S+)[\'\"]?\)/)[1]
+      item.Author = Array.from($('.author a', element).map((i, e) => $(e).text()))
+      item.Content = $('.desc', element).text().trim()
+      item.ID = +$('.title > a', element).eq(0).attr('href').match(/manhua(\d+)/)[1]
+      list.push(item)
+    })
+
+    const countPage = +$('.page-pagination li:nth-last-child(2)').text()
+    const result = { page, countPage, list }
+    const mt70 = $('.mt70')[0]
+    if (mt70) {
+      const bounce = {}
+      bounce.ID = +$('.title > a', mt70).attr('href').match(/manhua(\d+)/)[1]
+      bounce.Star = $('.star.active', mt70).length
+      bounce.Title = $('.title > a', mt70).text()
+      bounce.ShowPicUrlB = bounce.ShowConver = $('.cover img', mt70).attr('src')
+      bounce.ShowLastPartName = $('.btn-2', mt70).attr('title').match(RegExp(`${bounce.Title}\\s+(\\S+)`))[1]
+      bounce.Author = Array.from($('.subtitle > a', mt70).map((i, e) => $(e).text()))
+      bounce.Content = $('.content', mt70).text().trim()
+
+      if (bounce.Content.length > 70) {
+        bounce.Content = bounce.Content.substr(0, 100) + '...'
+      }
+      result.bounce = bounce
+    }
+    return result
+  }
 }
 
 module.exports = CartoonService
