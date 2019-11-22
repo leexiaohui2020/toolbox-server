@@ -115,8 +115,8 @@ class CartoonService extends Service {
     const { data } = await ctx.curl(url, { dataType: 'text', headers: { "user-agent": userAgent } })
     return await new Promise(resolve => {
       const $ = cheerio.load(data, { decodeEntities: false })
-      const title = $('.view-fix-top-bar-title').children()[0].prev.data
-      const callback = paper => resolve({ userAgent, paper, title: title.substr(0, title.length - 1) })
+      const title = $('.view-fix-top-bar-title').text().trim().replace(/\-\d+\/\d+/g, '')
+      const callback = paper => resolve({ userAgent, paper, title })
       $('script[type="text/javascript"]').each((index, element) => {
         const text = $(element).html().trim()
         if (!/^eval/.test(text)) return
