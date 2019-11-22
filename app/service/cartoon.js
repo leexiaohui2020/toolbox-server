@@ -111,7 +111,7 @@ class CartoonService extends Service {
   async getPaper({ link }) {
     const { ctx } = this
     const url = `http://m.1kkk.com/${link}/`
-    const { data } = await ctx.curl(url, { dataType: 'text', headers: { "user-agent": ctx.request.headers['user-agent'] } })
+    const { data } = await ctx.curl(url, { dataType: 'text', headers: { "user-agent": 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.3 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1 wechatdevtools/1.02.1911152 MicroMessenger/7.0.4 Language/zh_CN webview/' } })
     
     return await new Promise(resolve => {
       const $ = cheerio.load(data, { decodeEntities: false })
