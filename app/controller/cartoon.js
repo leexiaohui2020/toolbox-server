@@ -72,7 +72,7 @@ class CartoonController extends Controller {
       timeout: 60000,
       headers: {
         referer: 'http://m.1kkk.com/',
-        "user-agent": ctx.request.headers['user-agent']
+        "user-agent": 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.3 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1 wechatdevtools/1.02.1911152 MicroMessenger/7.0.4 Language/zh_CN webview/'
       }
     })
     ctx.type = 'image/png'
