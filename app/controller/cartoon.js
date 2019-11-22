@@ -77,6 +77,7 @@ class CartoonController extends Controller {
     })
     ctx.type = 'image/png'
     ctx.body = data
+    console.info(ctx.request.headers['user-agent'])
   }
 }
 
