@@ -5,4 +5,5 @@ module.exports = app => {
   router.get('/proxy/getBingWallPaper', controller.proxy.getBingWallPaper)
   router.post('/proxy/getBilibiliAvCover', controller.proxy.getBilibiliAvCover)
   router.post('/proxy/createGif', controller.proxy.createGif)
+  router.post('/proxy/getChineseCommercialCode', controller.proxy.getChineseCommercialCode)
 }

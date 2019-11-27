@@ -32,6 +32,15 @@ class ProxyController extends Controller {
     const data = await ctx.service.proxy.getBilibiliAvCover(ctx.request.body)
     ctx.body = { status: 'ok', data }
   }
+
+  async getChineseCommercialCode() {
+    const { ctx } = this
+    ctx.validate({
+      content: { type: 'string' }
+    })
+    const data = await ctx.service.proxy.getChineseCommercialCode(ctx.request.body)
+    ctx.body = { status: 'ok', data }
+  }
 }
 
 module.exports = ProxyController

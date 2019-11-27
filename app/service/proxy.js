@@ -37,6 +37,18 @@ class ProxyService extends Service {
     })
     return data
   }
+
+  /**
+   * 标准中文电码查询
+   * @param {Object} param0
+   * @param {String} param0.content
+   */
+  async getChineseCommercialCode({ content }) {
+    const { ctx } = this
+    const url = `http://www.atoolbox.net/api/GetChineseCommercialCode.php?ch=${content}`
+    const { data } = await ctx.curl(url, { dataType: 'json' })
+    return data
+  }
 }
 
 module.exports = ProxyService
