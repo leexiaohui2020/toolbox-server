@@ -9,6 +9,8 @@
     "egg-mongoose": "^3.2.0",
     "egg-scripts": "^2.11.0",
     "egg-validate": "^2.0.2",
+    "identicon.js": "^2.3.3",
+    "md5": "^2.2.1",
     "moment": "^2.24.0",
     "user-agents": "^1.0.447"
   },

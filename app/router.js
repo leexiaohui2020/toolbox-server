@@ -15,4 +15,5 @@ module.exports = app => {
   routerYudans(app)
   routerCartoon(app)
   router.get('/', controller.home.index)
+  router.get('/identicon', controller.home.identicon)
 }
