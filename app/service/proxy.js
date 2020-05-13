@@ -85,6 +85,22 @@ class ProxyService extends Service {
     const { result } = res.data;
     return result;
   }
+
+  /**
+   * 诺基亚短信图片生成接口
+   * @param {Object} param0
+   * @param {String} param0.sms - 短信内容
+   */
+  async getNokiaMessageImage({ sms }) {
+    const { ctx } = this;
+    const { data: res } = await ctx.curl('http://www.atoolbox.net/Api/GetNokiaMessageImage.php', {
+      data: { sms },
+      method: 'POST',
+      dataType: 'text',
+      timeout: 1000 * 600,
+    });
+    return res;
+  }
 }
 
 module.exports = ProxyService

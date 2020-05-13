@@ -59,6 +59,15 @@ class ProxyController extends Controller {
     });
     ctx.handler(await ctx.service.proxy.getPlantClassifyInfo(ctx.request.body));
   }
+
+  // 诺基亚短信图片生成接口
+  async getNokiaMessageImage() {
+    const { ctx } = this;
+    ctx.validate({
+      sms: { type: 'string' },
+    });
+    ctx.handler(await ctx.service.proxy.getNokiaMessageImage(ctx.request.body));
+  }
 }
 
 module.exports = ProxyController
