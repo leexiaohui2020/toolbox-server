@@ -49,6 +49,24 @@ class ProxyService extends Service {
     const { data } = await ctx.curl(url, { dataType: 'json' })
     return data
   }
+
+  /**
+   * 动物识别接口
+   * @param {Object} param0 
+   * @param {String} param0.img - 图片Base64数据
+   */
+  async getAnimalClassifyInfo({ img }) {
+    const { ctx } = this;
+    const { data: res } = await ctx.curl('http://www.atoolbox.net/Api/GetAnimalClassifyInfo.php', {
+      method: 'POST',
+      data: {
+        img,
+      },
+      dataType: 'json',
+    });
+    const { result } = res.data;
+    return result;
+  }
 }
 
 module.exports = ProxyService

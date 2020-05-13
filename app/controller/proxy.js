@@ -41,6 +41,15 @@ class ProxyController extends Controller {
     const data = await ctx.service.proxy.getChineseCommercialCode(ctx.request.body)
     ctx.body = { status: 'ok', data }
   }
+
+  // 动物识别接口
+  async getAnimalClassifyInfo() {
+    const { ctx } = this;
+    ctx.validate({
+      img: { type: 'string' },
+    });
+    ctx.handler(await ctx.service.proxy.getAnimalClassifyInfo(ctx.request.body));
+  }
 }
 
 module.exports = ProxyController
