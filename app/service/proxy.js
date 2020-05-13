@@ -67,6 +67,24 @@ class ProxyService extends Service {
     const { result } = res.data;
     return result;
   }
+  
+  /**
+   * 植物识别接口
+   * @param {Object} param0 
+   * @param {String} param0.img - 图片Base64数据
+   */
+  async getPlantClassifyInfo({ img }) {
+    const { ctx } = this;
+    const { data: res } = await ctx.curl('http://www.atoolbox.net/Api/GetPlantClassifyInfo.php', {
+      method: 'POST',
+      data: {
+        img,
+      },
+      dataType: 'json',
+    });
+    const { result } = res.data;
+    return result;
+  }
 }
 
 module.exports = ProxyService

@@ -50,6 +50,15 @@ class ProxyController extends Controller {
     });
     ctx.handler(await ctx.service.proxy.getAnimalClassifyInfo(ctx.request.body));
   }
+  
+  // 植物识别接口
+  async getPlantClassifyInfo() {
+    const { ctx } = this;
+    ctx.validate({
+      img: { type: 'string' },
+    });
+    ctx.handler(await ctx.service.proxy.getPlantClassifyInfo(ctx.request.body));
+  }
 }
 
 module.exports = ProxyController
