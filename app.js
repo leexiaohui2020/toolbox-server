@@ -10,6 +10,13 @@ class AppBootHool {
     const ctx = await app.createAnonymousContext()
     await app.runSchedule('bing-paper')
     await app.runSchedule('yudans-music')
+    await this.addValidateRules()
+  }
+
+  // 添加自定义验证规则
+  async addValidateRules() {
+    const { validator } = this.app;
+    
   }
 }
 
