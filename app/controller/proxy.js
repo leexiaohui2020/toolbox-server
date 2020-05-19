@@ -68,6 +68,15 @@ class ProxyController extends Controller {
     });
     ctx.handler(await ctx.service.proxy.getNokiaMessageImage(ctx.request.body));
   }
+
+  // 随机获取文章的一句话
+  async getArticleRandOne() {
+    const { ctx } = this;
+    ctx.validate({
+      category: { type: 'int' },
+    });
+    ctx.handler(await ctx.service.proxy.getArticleRandOne(ctx.request.body));
+  }
 }
 
 module.exports = ProxyController

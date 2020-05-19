@@ -101,6 +101,19 @@ class ProxyService extends Service {
     });
     return res;
   }
+
+  /**
+   * 随机获取文章的一句话
+   * @param {Object} opts
+   * @param {Number} opts.category - 分类
+   */
+  async getArticleRandOne(opts = {}) {
+    const { ctx } = this;
+    const { category } = opts;
+    const url = `http://www.atoolbox.net/Api/GetArticleRandOne.php?C=${category}`;
+    const { data } = await ctx.curl(url, { dataType: 'text' });
+    return JSON.parse(data.trim())
+  }
 }
 
 module.exports = ProxyService

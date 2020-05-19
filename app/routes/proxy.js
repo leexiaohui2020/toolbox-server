@@ -9,4 +9,5 @@ module.exports = app => {
   router.post('/proxy/getAnimalClassifyInfo', controller.proxy.getAnimalClassifyInfo)
   router.post('/proxy/getPlantClassifyInfo', controller.proxy.getPlantClassifyInfo)
   router.post('/proxy/getNokiaMessageImage', controller.proxy.getNokiaMessageImage)
+  router.post('/proxy/getArticleRandOne', controller.proxy.getArticleRandOne)
 }
