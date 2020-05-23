@@ -114,6 +114,30 @@ class ProxyService extends Service {
     const { data } = await ctx.curl(url, { dataType: 'text' });
     return JSON.parse(data.trim())
   }
+
+  /**
+   * 印章图案生成器
+   * @param {Object} opts
+   * @param {String} opts.font - 字体
+   * @param {String} opts.style - 样式
+   * @param {String} opts.st - 简体繁体
+   * @param {String} opts.content - 图章文字
+   */
+  async getSealImage(opts = {}) {
+    const { ctx } = this;
+    const { data: res } = await ctx.curl('http://www.atoolbox.net/Api/GetSealImage.php', {
+      data: {
+        t: 'seal',
+        f: opts.font,
+        s: opts.style,
+        b: opts.st,
+        c: opts.content,
+      },
+      method: 'POST',
+      dataType: 'text',
+    });
+    return res;
+  }
 }
 
 module.exports = ProxyService

@@ -77,6 +77,18 @@ class ProxyController extends Controller {
     });
     ctx.handler(await ctx.service.proxy.getArticleRandOne(ctx.request.body));
   }
+
+  // 印章图案生成器
+  async getSealImage() {
+    const { ctx } = this;
+    ctx.validate({
+      font: { type: 'string' },
+      style: { type: 'string' },
+      st: { type: 'string' },
+      content: { type: 'string', min: 4, max: 4 },
+    });
+    ctx.body = await ctx.service.proxy.getSealImage(ctx.request.body);
+  }
 }
 
 module.exports = ProxyController

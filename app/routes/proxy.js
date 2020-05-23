@@ -10,4 +10,7 @@ module.exports = app => {
   router.post('/proxy/getPlantClassifyInfo', controller.proxy.getPlantClassifyInfo)
   router.post('/proxy/getNokiaMessageImage', controller.proxy.getNokiaMessageImage)
   router.post('/proxy/getArticleRandOne', controller.proxy.getArticleRandOne)
+
+  // 印章图案生成器
+  router.post('/proxy/getSealImage', controller.proxy.getSealImage);
 }
