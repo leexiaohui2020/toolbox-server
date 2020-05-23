@@ -69,21 +69,21 @@ class UserService extends Service {
       {
         label: '今日新增',
         count: await ctx.model.User.countDocuments({
-          createdAt: { $gte: currentDate },
+          createdTime: { $gte: currentDate },
         }),
       },
       // 本周新增
       {
         label: '本周新增',
         count: await ctx.model.User.countDocuments({
-          createdAt: { $gte: firstDateOfWeek },
+          createdTime: { $gte: firstDateOfWeek },
         }),
       },
       // 本月新增
       {
         label: '本月新增',
         count: await ctx.model.User.countDocuments({
-          createdAt: { $gte: firstDateOfMonth },
+          createdTime: { $gte: firstDateOfMonth },
         }),
       },
     ];
